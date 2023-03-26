@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { URL } from "./url";
 
 type QuotesType = {
   quote: string;
@@ -17,9 +18,7 @@ function App() {
   const [searchWord, setSearchWord] = useState<string>("");
   const fetchOneQuote = async () => {
     try {
-      const res = await fetch(
-        "https://susan-quote-server.glitch.me/quotes/random"
-      );
+      const res = await fetch(`${URL}random`);
       const data = await res.json();
       setOneQuote(data);
       setIsOneQuoteLoading(false);
@@ -35,9 +34,7 @@ function App() {
     const searchQuote = async () => {
       if (searchWord) {
         try {
-          const res = await fetch(
-            `https://susan-quote-server.glitch.me/quotes/search?term=${searchWord}`
-          );
+          const res = await fetch(`${URL}search?term=${searchWord}`);
           if (!res.ok) throw Error("Did not receive expected data");
           const data = await res.json();
           setSearchedQuote(data);
